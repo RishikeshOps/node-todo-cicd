@@ -1,22 +1,22 @@
 pipeline {
-    agent { label 'node-agent' }
+    agent { label 'ironman' }
     
     stages{
         stage('Code'){
             steps{
-                git url: 'https://github.com/LondheShubham153/node-todo-cicd.git', branch: 'master' 
+                git url: 'https://github.com/RishikeshOps/node-todo-cicd.git', branch: 'master' 
             }
         }
-        stage('Build and Test'){
+        stage('Build'){
             steps{
-                sh 'docker build . -t trainwithshubham/node-todo-test:latest'
+                sh 'docker build . -t rishikeshops/todo-app:latest'
             }
         }
         stage('Push'){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DockerHubPassword', usernameVariable: 'DockerHubUser')]) {
         	     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                 sh 'docker push trainwithshubham/node-todo-test:latest'
+                 sh 'docker push rishikeshops/todo-app:latest'
                 }
             }
         }
