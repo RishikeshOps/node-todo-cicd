@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   web:
-    image: 'rishikeshops/todo-app:latest'
+    build: .
+    #image: 'rishikeshops/todo-app:latest'
     ports:
       - "8000:8000"
